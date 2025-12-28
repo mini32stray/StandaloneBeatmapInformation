@@ -324,13 +324,12 @@ namespace StandaloneBeatmapInformation.View
 				}
 			}
 
-			await WaitUntilStarted(startSongTime, token);
-			// JD
 			string jumpDistanceText = "";
 			if (context.Config.ShowJD)
 			{
 				if (variableMovementDataProvider != null)
 				{
+					await WaitUntilStarted(startSongTime, token);
 					var jumpDistance = variableMovementDataProvider.jumpDistance;
 					var noteJumpMovementSpeed = gameplayCoreSceneSetupData.beatmapBasicData.noteJumpMovementSpeed;
 					logger?.Debug($"jumpDistance: {jumpDistance}, noteJumpMovementSpeed: {noteJumpMovementSpeed}");
