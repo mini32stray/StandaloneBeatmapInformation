@@ -1,0 +1,39 @@
+﻿<vertical pad="2" horizontal-fit="Unconstrained" vertical-fit="PreferredSize" spacing="0" bg="round-rect-panel">
+  <horizontal>
+    <text text="~song-title" align="Left" overflow-mode="Ellipsis" font-size="5.0" word-wrapping="false"/>
+  </horizontal>
+  <horizontal pad-left="4">
+    <text text="~song-subtitle" align="Left" overflow-mode="Ellipsis" font-size='4.0' word-wrapping="false"/>
+  </horizontal>
+  <horizontal pad-top="1" horizontal-fit="Unconstrained" spacing="2" child-expand-width="false">
+    <text text="~song-author" align="Left" overflow-mode="Ellipsis" font-size="4.2"/>
+    <text text="~mapper" align="Left" overflow-mode="Ellipsis" font-size="4.2"/>
+  </horizontal>
+  <horizontal pad-top="1" horizontal-fit="Unconstrained" spacing="2" child-expand-width="false">
+    <text id="id" text="~map-id" align="Left" overflow-mode="Truncate" font-size="3.8"/>
+    <text id="stars" text="~stars" align="Left" overflow-mode="Truncate" font-size="3.8"/>
+  </horizontal>
+  <horizontal pad-top="3">
+    <macro.for-each items="charas">
+      <vertical active="~is-active" bg-color="~background-color" background="panel-top" horizontal-fit="PreferredSize" pad-left="2" pad-right="2" spacing="3" child-align="MiddleLeft" vertical-fit="PreferredSize">
+        <image id="image-component" image-color="~image-color" preserve-aspect="true" min-width="5" min-height="5" pref-width="5" pref-height="5" />
+      </vertical>
+    </macro.for-each>
+  </horizontal>
+  <horizontal pad-top="2" child-align="LowerLeft">
+    <macro.for-each items="diffis">
+      <vertical active="~is-active" bg-color="~background-color" background="panel-top" pref-width="12" horizontal-fit="Unconstrained" pad-left="2" pad-right="2" spacing="3" child-align="MiddleLeft" vertical-fit="PreferredSize">
+        <text text="~label" font-size="2.4" overflow-mode="Ellipsis" word-wrapping="true" color="~body-color" align="Midline"/>
+      </vertical>
+    </macro.for-each>
+  </horizontal>
+  <horizontal pad-top='1'>
+    <text text="~jump-distance" align="Left" overflow-mode="Ellipsis" font-size="3.2" word-wrapping="false"/>
+  </horizontal>
+  <horizontal pad-top='3'>
+    <text text="~request-state" align="Left" overflow-mode="Ellipsis" font-size="3.8" word-wrapping="false"/>
+  </horizontal>
+  <horizontal>
+    <text text="~requester" align="Left" overflow-mode="Ellipsis" font-size="3.8" word-wrapping="false"/>
+  </horizontal>
+</vertical>

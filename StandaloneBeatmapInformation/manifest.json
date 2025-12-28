@@ -1,0 +1,17 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
+  "id": "StandaloneBeatmapInformation",
+  "name": "StandaloneBeatmapInformation",
+  "author": "kan8pachi,mini32stray",
+  "version": "0.1.2",
+  "description": "Standalone version of beatmap information display.",
+  "gameVersion": "1.40.5",
+  "dependsOn": {
+    "BSIPA": "^4.3.5",
+    "SiraUtil": "^3.1.14",
+    "BeatSaberMarkupLanguage": "^1.12.5",
+    "SongCore": "^3.15.3",
+    "BS Utils": "^1.14.2",
+    "SongDetailsCache": "^1.4.0"
+  }
+}
