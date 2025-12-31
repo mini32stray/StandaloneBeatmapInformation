@@ -192,8 +192,10 @@ namespace StandaloneBeatmapInformation.View
 		private readonly GameplayCoreSceneSetupData? gameplayCoreSceneSetupData;
 		private readonly AudioTimeSyncController? audioTimeSyncController;
 		private readonly VariableMovementDataProvider? variableMovementDataProvider;
+		private Information? vInfo;
 		private FloatingScreen? screen;
 		private InformationPanelViewController? viewController;
+		private CancellationTokenSource cts;
 
 		public InformationPanel(
 			SiraLog? logger,
@@ -207,6 +209,7 @@ namespace StandaloneBeatmapInformation.View
 			this.gameplayCoreSceneSetupData = gameplayCoreSceneSetupData;
 			this.audioTimeSyncController = audioTimeSyncController;
 			this.variableMovementDataProvider = variableMovementDataProvider;
+			cts = new();
 		}
 
 		public void Initialize()
@@ -218,7 +221,7 @@ namespace StandaloneBeatmapInformation.View
 			}
 			var stopwatch = Stopwatch.StartNew();
 
-			_ = InitializeAsync(CancellationToken.None);
+			_ = InitializeAsync(cts.Token);
 
 			stopwatch.Stop();
 			logger?.Info($"Initialize in first frame exited in {stopwatch.ElapsedMilliseconds} ms.");
@@ -356,19 +359,13 @@ namespace StandaloneBeatmapInformation.View
 				jumpDistanceText,
 				additional);
 
-			var posture = context.Config.Posture;
-			screen = FloatingScreen.CreateFloatingScreen(
-				new Vector2(60f, 60f),
-				context.Config.EnableHandle,
-				new Vector3(posture.PosX, posture.PosY, posture.PosZ),
-				Quaternion.Euler(posture.EulerX, posture.EulerY, posture.EulerZ));
-			screen.HandleReleased += Screen_HandleReleased;
-			viewController = BeatSaberMarkupLanguage.BeatSaberUI.CreateViewController<InformationPanelViewController>();
-			viewController.InitializeBeforeSet(logger?.Logger?.GetChildLogger(nameof(InformationPanelViewController)), info);
-			screen.SetRootViewController(viewController, ViewController.AnimationType.Out);
-			viewController.InitializeLater();
-
-			logger?.Info("Initialized");
+			if (token.IsCancellationRequested)
+			{
+				return;
+			}
+			// delegate UI creation to Tick() to avoid creation after scene change.
+			vInfo = info;
+			logger?.Info("Initialized requested");
 		}
 
 		private void Screen_HandleReleased(object sender, FloatingScreenHandleEventArgs e)
@@ -435,11 +432,33 @@ namespace StandaloneBeatmapInformation.View
 
 		public void Tick()
 		{
-			viewController?.Tick();
+			if (viewController == null)
+			{
+				if (vInfo != null)
+				{
+					var posture = context.Config.Posture;
+					screen = FloatingScreen.CreateFloatingScreen(
+						new Vector2(60f, 60f),
+						context.Config.EnableHandle,
+						new Vector3(posture.PosX, posture.PosY, posture.PosZ),
+						Quaternion.Euler(posture.EulerX, posture.EulerY, posture.EulerZ));
+					screen.HandleReleased += Screen_HandleReleased;
+					viewController = BeatSaberMarkupLanguage.BeatSaberUI.CreateViewController<InformationPanelViewController>();
+					viewController.InitializeBeforeSet(logger?.Logger?.GetChildLogger(nameof(InformationPanelViewController)), vInfo);
+					screen.SetRootViewController(viewController, ViewController.AnimationType.Out);
+					viewController.InitializeLater();
+					logger?.Info("Initialize completed.");
+				}
+			}
+			else
+			{
+				viewController?.Tick();
+			}
 		}
 
 		public void Dispose()
 		{
+			cts.Cancel();
 			if (screen != null)
 			{
 				screen.HandleReleased -= Screen_HandleReleased;
@@ -451,6 +470,7 @@ namespace StandaloneBeatmapInformation.View
 				UnityEngine.Object.Destroy(viewController);
 				viewController = null;
 			}
+			cts.Dispose();
 		}
 	}
 }
