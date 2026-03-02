@@ -1,4 +1,4 @@
-﻿<background xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd">
+﻿<background xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='https://monkeymanboy.github.io/BSML-Docs/BSMLSchema.xsd'>
   <settings-scroll-view child-control-width="true" child-control-height="true" child-expand-width="true" size-delta-y="0" pad-top="2">
     <toggle-setting value="enabled" text="Enable display" apply-on-change="true" bind-value="true" />
     <toggle-setting value="enable-handle" text="Enable handle" apply-on-change="true" bind-value="true" />
@@ -10,6 +10,7 @@
     <toggle-setting value="show-characteristic" text="Show characteristic" apply-on-change="true" bind-value="true" />
     <toggle-setting value="show-difficulty" text="Show difficulty" apply-on-change="true" bind-value="true" />
     <toggle-setting value="show-jd" text="Show JD" apply-on-change="true" bind-value="true" />
+    <toggle-setting value="show-camscript" text="Show CameraScript" apply-on-change="true" bind-value="true" />
     <toggle-setting value="enable-additional" text="Enable additional" apply-on-change="true" bind-value="true" />
   </settings-scroll-view>
 </background>

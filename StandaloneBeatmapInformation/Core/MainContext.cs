@@ -11,10 +11,11 @@ namespace StandaloneBeatmapInformation.Core
 {
 	internal record AdditionalText(
 		string RequestState,
-		string Requester
+		string Requester,
+		string CamScript
 		)
 	{
-		public static AdditionalText Empty { get; } = new AdditionalText(string.Empty, string.Empty);
+		public static AdditionalText Empty { get; } = new AdditionalText(string.Empty, string.Empty, string.Empty);
 	}
 	internal class MainContext
 	{
@@ -27,21 +28,21 @@ namespace StandaloneBeatmapInformation.Core
 			Config = config;
 		}
 
-		public async Task<AdditionalText> GetCurrentAdditionalTextFromFile(string songHash)
-		{
-			var info = await Task.Run(() =>
-			{
-				Task.Delay(54);
-				var conf = new BS_Utils.Utilities.Config("StandaloneBeatmapInformation/additional.ini");
-				var section = "Additional";
-				var state = conf.GetString(section, "RequestState");
-				var targetSongHash = conf.GetString(section, "TargetSongHash");
-				var rawRequester = conf.GetString(section, "TargetSongRequester");
-				var requester = GetTextIfMatched(songHash, targetSongHash, rawRequester) ?? string.Empty;
-				return new AdditionalText(state, requester);
-			});
-			return info;
-		}
+		//public async Task<AdditionalText> GetCurrentAdditionalTextFromFile(string songHash)
+		//{
+		//	var info = await Task.Run(() =>
+		//	{
+		//		Task.Delay(54);
+		//		var conf = new BS_Utils.Utilities.Config("StandaloneBeatmapInformation/additional.ini");
+		//		var section = "Additional";
+		//		var state = conf.GetString(section, "RequestState");
+		//		var targetSongHash = conf.GetString(section, "TargetSongHash");
+		//		var rawRequester = conf.GetString(section, "TargetSongRequester");
+		//		var requester = GetTextIfMatched(songHash, targetSongHash, rawRequester) ?? string.Empty;
+		//		return new AdditionalText(state, requester, string.Empty);
+		//	});
+		//	return info;
+		//}
 
 		public AdditionalText GetCurrentAdditionalTextFromInterface(string songHash)
 		{
@@ -50,7 +51,8 @@ namespace StandaloneBeatmapInformation.Core
 				songHash,
 				AdditionalInformationInterface.TargetSongHash,
 				AdditionalInformationInterface.TargetSongRequester) ?? string.Empty;
-			return new AdditionalText(state, requester);
+			var camScriptAuthor = AdditionalInformationInterface.CamScriptAuthor;
+			return new AdditionalText(state, requester, camScriptAuthor);
 		}
 
 		private string? GetTextIfMatched(string currentSongHash, string targetSongHash, string rawText)

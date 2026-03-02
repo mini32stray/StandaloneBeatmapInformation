@@ -133,6 +133,7 @@ namespace StandaloneBeatmapInformation.View
 					.Select((x, i) => new CharacteristicHost(i, x))
 					.ToList();
 				JumpDistance = info.jumpDistance;
+				CamScript = info.Additional.CamScript;
 				RequestState = info.Additional.RequestState;
 				Requester = info.Additional.Requester;
 			}
@@ -179,6 +180,9 @@ namespace StandaloneBeatmapInformation.View
 
 			[UIValue("jump-distance")]
 			public string JumpDistance { get; set; } = string.Empty;
+
+			[UIValue("cam-script")]
+			public string CamScript { get; set; } = string.Empty;
 
 			[UIValue("request-state")]
 			public string RequestState { get; set; } = string.Empty;
@@ -438,7 +442,7 @@ namespace StandaloneBeatmapInformation.View
 				{
 					var posture = context.Config.Posture;
 					screen = FloatingScreen.CreateFloatingScreen(
-						new Vector2(60f, 60f),
+						new Vector2(67f, 60f),
 						context.Config.EnableHandle,
 						new Vector3(posture.PosX, posture.PosY, posture.PosZ),
 						Quaternion.Euler(posture.EulerX, posture.EulerY, posture.EulerZ));

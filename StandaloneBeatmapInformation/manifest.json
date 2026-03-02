@@ -3,7 +3,7 @@
   "id": "StandaloneBeatmapInformation",
   "name": "StandaloneBeatmapInformation",
   "author": "kan8pachi,mini32stray",
-  "version": "0.1.3",
+  "version": "0.2.1",
   "description": "Standalone version of beatmap information display.",
   "gameVersion": "1.40.5",
   "dependsOn": {
