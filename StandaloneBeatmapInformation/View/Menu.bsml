@@ -10,7 +10,6 @@
     <toggle-setting value="show-characteristic" text="Show characteristic" apply-on-change="true" bind-value="true" />
     <toggle-setting value="show-difficulty" text="Show difficulty" apply-on-change="true" bind-value="true" />
     <toggle-setting value="show-jd" text="Show JD" apply-on-change="true" bind-value="true" />
-    <toggle-setting value="show-camscript" text="Show CameraScript" apply-on-change="true" bind-value="true" />
     <toggle-setting value="enable-additional" text="Enable additional" apply-on-change="true" bind-value="true" />
   </settings-scroll-view>
 </background>
