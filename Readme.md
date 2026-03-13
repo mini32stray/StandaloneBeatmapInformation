@@ -5,7 +5,7 @@
 ## 概要
 これ↓
 
-![overview1](docs/overview1.png)
+![overview1](docs/overview1.jpg)
 
 - プレイ時にマップ情報を表示するパネルを空間上に置けます。
 - 曲開始時にインターネットに情報を取りに行きません。
@@ -16,7 +16,7 @@
 - `IndependentBsr` と一緒に使うと、リクエスト受付状態、リクエスタの名前を表示できます。
 - `CameraPlusMovementScriptBox` と一緒に使うと、カメラスクリプトの作者を表示できます。(v0.2.1から)
 
-  ![overview2](docs/overview2.png)
+  ![overview2](docs/overview2.jpg)
 
 
 ## 動作環境
@@ -28,3 +28,4 @@
 
 ## インストール
 `StandaloneBeatmapInformation.dll` を `Plugins` フォルダに置くだけ。
+
